@@ -49,12 +49,6 @@ spring:
             - StripPrefix=2
           order: 1000
 
-        # Eureka 服务注册中心路由
-        - id: eureka-server
-          uri: http://localhost:8761
-          predicates:
-            - Path=/eureka/**
-
       # 全局跨域配置 (生产环境建议限制域名)
       globalcors:
         cors-configurations:

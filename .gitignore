@@ -29,3 +29,8 @@ desktop.ini
 
 # Spring Boot
 spring-boot-*.log
+
+# Nacos 运行时数据（不应入库）
+# raft 协议日志和快照是 Nacos 内部状态机
+nacos/data/protocol/
+# 不忽略 nacos/data/tenant-config-data/，因为里面是 Nacos 上的业务配置快照
