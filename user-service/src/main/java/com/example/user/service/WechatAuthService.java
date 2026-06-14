@@ -1,5 +1,6 @@
 package com.example.user.service;
 
+import com.example.common.security.JwtService;
 import com.example.user.dto.*;
 import com.example.user.entity.User;
 import com.example.user.model.LoginState;
@@ -180,7 +181,7 @@ public class WechatAuthService {
         User user = findOrCreateByOpenid(mockOpenid);
 
         // 生成JWT
-        String token = jwtService.genreateToken(user);
+        String token = jwtService.genreateToken(new com.example.common.security.User(user.getId(), user.getUsername(), user.getRole()));
 
         // 更新登录状态
         LoginState loginState = stateMap.get(state);
@@ -228,7 +229,7 @@ public class WechatAuthService {
         User user = findOrCreateByOpenid(mockOpenid);
 
         // 生成JWT
-        String token = jwtService.genreateToken(user);
+        String token = jwtService.genreateToken(new com.example.common.security.User(user.getId(), user.getUsername(), user.getRole()));
 
         // 更新登录状态
         loginState.setStatus("success");

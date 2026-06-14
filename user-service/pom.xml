@@ -66,27 +66,11 @@
             <version>2.1.1</version>
         </dependency>
 
-        <!-- JJWT API -->
+    <!-- JJWT API 已下沉至 stellar-common 模块 -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.12.5</version>
-        </dependency>
-
-        <!-- JJWT 实现（运行时需要） -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>0.12.5</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- JJWT JSON 支持（Jackson） -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>0.12.5</version>
-            <scope>runtime</scope>
+            <groupId>com.example</groupId>
+            <artifactId>stellar-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <!-- ZXing 二维码生成库 -->
@@ -100,5 +84,12 @@
             <artifactId>javase</artifactId>
             <version>3.5.2</version>
         </dependency>
+
+        <!-- SpringDoc OpenAPI (Swagger UI) -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.6.0</version>
+        </dependency>
     </dependencies>
-</project> 
+</project>

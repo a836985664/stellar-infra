@@ -47,8 +47,8 @@ services:
       context: ./user-service
       dockerfile: Dockerfile
     container_name: user-service
-    ports:
-      - "8082:8082"
+    expose:
+      - "8082"
     environment:
       - SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR=nacos:8848
       - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=nacos:8848
@@ -63,8 +63,8 @@ services:
       context: ./tts-service
       dockerfile: Dockerfile
     container_name: tts-service
-    ports:
-      - "8082:8082"
+    expose:
+      - "8082"
     environment:
       - SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR=nacos:8848
       - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=nacos:8848

@@ -13,6 +13,7 @@
         <module>user-service</module>
         <module>tts-service</module>
         <module>gateway-service</module>
+        <module>stellar-common</module>
     </modules>
 
     <properties>
@@ -21,6 +22,7 @@
         <spring-ai.version>1.0.1</spring-ai.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <lombok.version>1.18.40</lombok.version>
         <openai.version>0.18.2</openai.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- 指定项目报告输出时使用的编码 -->
@@ -72,6 +74,13 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>
