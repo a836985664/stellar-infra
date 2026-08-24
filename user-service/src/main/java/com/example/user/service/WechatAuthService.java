@@ -244,7 +244,7 @@ public class WechatAuthService {
     /**
      * 根据openid查询或创建用户
      */
-    private User findOrCreateByOpenid(String openid) {
+     private User findOrCreateByOpenid(String openid) {
         // 查询用户
         User user = userRepository.findByOpenid(openid);
 
