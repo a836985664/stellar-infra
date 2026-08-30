@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # Nacos 注册中心
   nacos:
-    image: nacos/nacos-server:v2.3.2
+    image: nacos/nacos-server:v3.2.3
     container_name: nacos-standalone
     environment:
       - MODE=standalone
@@ -24,22 +24,22 @@ services:
     depends_on:
       - mysql
 
-  # MySQL 数据库
-  mysql:
-    image: mysql:8.0
-    container_name: mysql-nacos
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=nacos_config
+
+  # RabbitMQ 消息队列
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
     ports:
-      - "3306:3306"
+      - "5672:5672"      # AMQP 协议端口
+      - "15672:15672"    # 管理界面端口
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=***
     volumes:
-      - mysql-data:/var/lib/mysql
+      - rabbitmq-data:/var/lib/rabbitmq
     networks:
       - spring-cloud-net
-    command:
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
 
   # User Service
   user-service:
@@ -64,7 +64,7 @@ services:
       dockerfile: Dockerfile
     container_name: tts-service
     expose:
-      - "8082"
+      - "8083"
     environment:
       - SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR=nacos:8848
       - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=nacos:8848
