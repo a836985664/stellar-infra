@@ -20,8 +20,8 @@
         <spring-cloud.version>2024.0.1</spring-cloud.version>
         <spring-boot.version>3.4.5</spring-boot.version>
         <spring-ai.version>1.0.1</spring-ai.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
         <lombok.version>1.18.40</lombok.version>
         <openai.version>0.18.2</openai.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -66,12 +66,20 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
+                    <release>${maven.compiler.source}</release>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <annotationProcessorPaths>

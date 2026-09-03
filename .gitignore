@@ -34,3 +34,11 @@ spring-boot-*.log
 # raft 协议日志和快照是 Nacos 内部状态机
 nacos/data/protocol/
 # 不忽略 nacos/data/tenant-config-data/，因为里面是 Nacos 上的业务配置快照
+
+# ===== 大文件 / 二进制（防止 push 被 GitHub 100MB 限制挡住）=====
+*.tar.gz
+*.tar
+*.zip
+nacos/target/
+nacos/plugins/*.jar
+nacos-docker.tar.gz

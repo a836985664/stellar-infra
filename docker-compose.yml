@@ -1,100 +1,24 @@
-version: '3.8'
-
 services:
-  # Nacos 注册中心
-  nacos:
-    image: nacos/nacos-server:v2.3.2
-    container_name: nacos-standalone
-    environment:
-      - MODE=standalone
-      - PREFER_HOST_MODE=hostname
-      - SPRING_DATASOURCE_PLATFORM=mysql
-      - MYSQL_SERVICE_HOST=mysql
-      - MYSQL_SERVICE_PORT=3306
-      - MYSQL_SERVICE_DB_NAME=nacos_config
-      - MYSQL_SERVICE_USER=root
-      - MYSQL_SERVICE_PASSWORD=root
-    ports:
-      - "8848:8848"
-      - "9848:9848"
-    volumes:
-      - nacos-data:/home/nacos/data
-    networks:
-      - spring-cloud-net
-    depends_on:
-      - mysql
-
-  # MySQL 数据库
-  mysql:
-    image: mysql:8.0
-    container_name: mysql-nacos
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=nacos_config
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
-    networks:
-      - spring-cloud-net
-    command:
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
-
-  # User Service
-  user-service:
-    build:
-      context: ./user-service
-      dockerfile: Dockerfile
-    container_name: user-service
-    expose:
-      - "8082"
-    environment:
-      - SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR=nacos:8848
-      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=nacos:8848
-    networks:
-      - spring-cloud-net
-    depends_on:
-      - nacos
-
-  # TTS Service
-  tts-service:
-    build:
-      context: ./tts-service
-      dockerfile: Dockerfile
-    container_name: tts-service
-    expose:
-      - "8082"
-    environment:
-      - SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR=nacos:8848
-      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=nacos:8848
-    networks:
-      - spring-cloud-net
-    depends_on:
-      - nacos
-
-  # Gateway Service
-  gateway-service:
-    build:
-      context: ./gateway-service
-      dockerfile: Dockerfile
-    container_name: gateway-service
+  gateway:
+    image: gateway-service:1.0
+    container_name: gateway
     ports:
       - "8080:8080"
     environment:
-      - SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR=nacos:8848
-      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=nacos:8848
-    networks:
-      - spring-cloud-net
-    depends_on:
-      - nacos
-      - user-service
-      - tts-service
+      NACOS_SERVER: 192.168.1.6
+    restart: unless-stopped
 
-networks:
-  spring-cloud-net:
-    driver: bridge
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"     # AMQP 消息端口
+      - "15672:15672"   # 管理界面
+    restart: unless-stopped
 
-volumes:
-  nacos-data:
-  mysql-data:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8081:80"       # 宿主8081 -> 容器80（8080已给gateway）
+    restart: unless-stopped

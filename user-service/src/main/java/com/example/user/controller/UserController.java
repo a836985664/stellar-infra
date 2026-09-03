@@ -1,5 +1,6 @@
 package com.example.user.controller;
 
+import com.example.user.annotation.OperationLog;
 import com.example.user.entity.ChatMessage;
 import com.example.user.entity.User;
 import com.example.user.repository.ChatMessageRepository;
@@ -21,6 +22,7 @@ public class UserController {
     private final ChatMessageRepository chatMessageRepository;
     Map<Long, User> userMap = new HashMap<>();
 
+    @OperationLog(value = "创建用户", module = "用户管理", saveParams = false)
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
