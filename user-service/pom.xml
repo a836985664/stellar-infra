@@ -73,17 +73,24 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-        <!-- ZXing 二维码生成库 -->
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>javase</artifactId>
-            <version>3.5.2</version>
-        </dependency>
+        <!-- Drools 规则引擎 -->
+                <dependency>
+                    <groupId>org.drools</groupId>
+                    <artifactId>drools-compiler</artifactId>
+                    <version>8.44.2.Final</version>
+                </dependency>
+
+                <!-- ZXing 二维码生成库 -->
+                <dependency>
+                    <groupId>com.google.zxing</groupId>
+                    <artifactId>core</artifactId>
+                    <version>3.5.2</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.google.zxing</groupId>
+                    <artifactId>javase</artifactId>
+                    <version>3.5.2</version>
+                </dependency>
 
         <!-- SpringDoc OpenAPI (Swagger UI) -->
         <dependency>
